@@ -1,0 +1,13 @@
+r	// flash 오류를 우회하기 위한 함수 추가	 
+r	”	"
+r	“	"
+r	\\"	 
+r	\"	 
+r	[^\u0000-\u007F\u3130-\u318F\uAC00-\uD800]	 
+r	\\n	 
+r	\n	 
+r	\r	 
+r	[,]	 
+t	  	 
+t	function _flash_removeCallback() {}	 
+r	\t	 	 
