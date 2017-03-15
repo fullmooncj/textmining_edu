@@ -24,8 +24,8 @@ if __name__=='__main__':
     doc_list = list()
     tfidf_config = Config("../conf/config.ini")
 
-    fr = open(tfidf_config.get("main", "data") + '/' + tfidf_config.get("filelist", "morph_result"), 'r')
-    fw = open(tfidf_config.get("main", "data") + '/' + tfidf_config.get("filelist", "tfidf_result"), 'w')
+    fr = open(tfidf_config.get("main", "data") + '/' + tfidf_config.get("filelist", "morph_result"), 'r', encoding='utf8')
+    fw = open(tfidf_config.get("main", "data") + '/' + tfidf_config.get("filelist", "tfidf_result"), 'w', encoding='utf8')
 
     while(True):
         keyword_dict = dict()

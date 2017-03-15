@@ -4,14 +4,12 @@ import operator
 from config import Config
 from df import DF
 from ig import IG
-from mi import MI
 
 class Feature:
     def __init__(self, path):
         self.config = Config(path)
         self.DF = DF()
         self.IG = IG()
-        self.MI = MI()
 
     def get_selected_dict(self, doc_list, oper):
         key_list = list()
@@ -33,9 +31,8 @@ class Feature:
         elif oper == 'ig':
             ig_key_list = self.IG.generate_merged_dict_by_ig(doc_list, cut_off_count)
             key_list = ig_key_list
-        elif oper == 'mi':
-            ig_key_list = self.MI.generate_merged_dict_by_mi(doc_list, cut_off_count)
-            key_list = ig_key_list
+        else:
+            return
 
         for tmp in doc_list:
             news_class = list(tmp.keys())[0]
@@ -52,7 +49,7 @@ class Feature:
 
     def get_doc_list(self):
         doc_list = list()
-        fr = open(self.config.get('main', 'data') + '/' + self.config.get('filelist', 'tfidf_result'), 'r')
+        fr = open(self.config.get('main', 'data') + '/' + self.config.get('filelist', 'tf_result'), 'r')
 
         while (True):
             line = fr.readline()
@@ -71,8 +68,6 @@ class Feature:
             fw = open(self.config.get('main', 'data') + '/' + self.config.get('filelist', 'ttf_result'), 'w')
         elif str == 'ig':
             fw = open(self.config.get('main', 'data') + '/' + self.config.get('filelist', 'ig_result'), 'w')
-        elif str == 'mi':
-            fw = open(self.config.get('main', 'data') + '/' + self.config.get('filelist', 'mi_result'), 'w')
         else:
             return
 
@@ -87,12 +82,10 @@ if __name__ == '__main__':
     selected_df_doc_list = feature.get_selected_dict(doc_list, 'df')
     selected_ttf_doc_list = feature.get_selected_dict(doc_list, 'ttf')
     selected_ig_doc_list = feature.get_selected_dict(doc_list, 'ig')
-    selected_mi_doc_list = feature.get_selected_dict(doc_list, 'mi')
 
     feature.write_to_file(selected_df_doc_list, 'df')
     feature.write_to_file(selected_ttf_doc_list, 'ttf')
     feature.write_to_file(selected_ttf_doc_list, 'ig')
-    feature.write_to_file(selected_mi_doc_list, 'mi')
 
 
 
